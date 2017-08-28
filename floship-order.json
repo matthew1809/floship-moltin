@@ -1,0 +1,23 @@
+{
+  "order_lines": [{
+    "item_id": 8768,
+    "quantity": 1,
+    "customs_value": {
+      "amount": 100.00,
+      "currency": "USD"
+    }
+  }],
+  "shipping_address": {
+    "company": "Google Inc.",
+    "addressee": "John Doe",
+    "address_1": "123-456 Saint Johns Ave",
+    "city": "New York",
+    "state": "New York",
+    "postal_code": "961234",
+    "country": "US",
+    "phone": "+151235131235",
+    "email": "email@example.com"
+  },
+  "courier_id": 25,
+  "customer_reference": "Order #123"
+}
