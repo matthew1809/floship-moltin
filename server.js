@@ -5,7 +5,7 @@ var helper     = require('./helper.js');
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 var app = express()
 app.use(bodyParser.json()); // for parsing application/json
@@ -59,5 +59,5 @@ app.get('/test', function(req, res) {
 
 
 app.listen(port, function () {
-  console.log('Floship app listening on port' + port)
+  console.log('Floship app listening on port ' + port)
 });
