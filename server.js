@@ -3,7 +3,6 @@ var https      = require("https");
 var bodyParser = require('body-parser');
 var helper     = require('./helper.js');
 
-// set the port of our application
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 3000;
 
