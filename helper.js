@@ -7,20 +7,27 @@ const Moltin = moltin.gateway({
   client_secret: config.client_secret,
 });
 
-
+// takes the floship object that has been filled with the correct data from a moltin order and sends it to floship using the unirest http client library
 exports.new_floship_order = function(floship_template) {
   
     unirest.post('https://sandbox.floship.com/api/v1/orders/')
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Token ' + config.floship_token})
       .send(floship_template)
       .end(function (response) {
-    console.log(response.body);
+
+    if(response.code === 201) {
+      console.log("floship order has been created")
+    } else {
+      console.log("floship request failed with a " + response.code)
+    }
   });
   
 };
 
-
+// take moltin order items, matches each item with it's floship counterpart, and adds the correct floship data to an order_lines array so that it can be added to the floship_template later
 exports.get_order_items = function(order_id, floship_template, callback) {
+  
+  console.log("get_order_items is running")
   
   Moltin.Orders.Items(order_id)
   
@@ -31,15 +38,15 @@ exports.get_order_items = function(order_id, floship_template, callback) {
       var order_lines = [];
       
       data.forEach((item) => {
-        
-        var inventory = [{moltin_id: "5965e714-02bd-43f0-bfde-806e2f991a90", id: "123", customs_value: {amount: 599.00, currency: "USD"}}, {moltin_id: "b5b9c7f1-2302-4ab8-a8a6-ddbd1fde5b56", id: "123", customs_value: {amount: 599.00, currency: "USD"}}];  
+            
+        var inventory = [{moltin_id: "5965e714-02bd-43f0-bfde-806e2f991a90", id: "9662", customs_value: {amount: 599.00, currency: "USD"}}, {moltin_id: "784db3a8-ce1d-4cfe-8621-6b729a69001a", id: "9662", customs_value: {amount: 799.00, currency: "USD"}}];  
           
         moltin_product_id = item.product_id;  
         
         quantity = item.quantity;
         
         var getFloShipItem = function (arr, value, callback) {
-
+            
             var result  = arr.filter(function(o){return o.moltin_id == value;} );
 
             callback(result? result[0] : null, order_lines); // or undefined
@@ -47,7 +54,6 @@ exports.get_order_items = function(order_id, floship_template, callback) {
         }
         
         getFloShipItem(inventory, moltin_product_id, function(result, order_lines) {
-          console.log(moltin_product_id)
           
             if (result != undefined) {
               
@@ -60,13 +66,13 @@ exports.get_order_items = function(order_id, floship_template, callback) {
               }
             });
             
-            console.log(order_lines)
+
             }
           })
           
       })
     
-    return (order_lines)
+    return order_lines
     
   })
 

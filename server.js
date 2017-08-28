@@ -8,7 +8,8 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.post('/orders', function (req, res) {
-
+  
+  console.log("orders endpoint has been POSTed to")
   var floship_template = {
     "order_lines": [],
     "shipping_address": {
