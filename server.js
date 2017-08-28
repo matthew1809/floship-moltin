@@ -8,7 +8,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.post('/orders', function (req, res) {
-  
+
   var floship_template = {
     "order_lines": [],
     "shipping_address": {
@@ -18,9 +18,10 @@ app.post('/orders', function (req, res) {
       "city": "",
       "state": "",
       "postal_code": "",
-      "country": ""
+      "country": "",
+      "phone": "07732429621"
     },
-    "courier_id": 0,
+    "courier_id": 1348,
     "customer_reference": ""
   };
   
@@ -33,10 +34,15 @@ app.post('/orders', function (req, res) {
   floship_template.shipping_address.state = pbody.data.shipping_address.county;
   floship_template.shipping_address.postal_code = pbody.data.shipping_address.postcode;
   floship_template.shipping_address.country = pbody.data.shipping_address.country;
-
-  //console.log('order id is: ' + order_id);
+  floship_template.customer_reference = order_id;
   
-  return helper.get_order_items(order_id, floship_template);
+  return helper.get_order_items(order_id, floship_template, function(order_lines) {
+    
+    floship_template.order_lines = order_lines
+    
+    return helper.new_floship_order(floship_template)
+    
+  });
 
 });
 
