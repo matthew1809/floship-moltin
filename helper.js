@@ -1,13 +1,13 @@
 var exports = module.exports = {};
 var unirest = require('unirest');
-var config     = require('./config.js');
+//var config     = require('./config.js');
 const moltin = require('@moltin/sdk');
 const Moltin = moltin.gateway({
-  client_id: process.env.client_id || config.client_id,
-  client_secret: process.env.client_secret || config.client_secret,
+  client_id: process.env.client_id
+  client_secret: process.env.client_secret
 });
 
-var floship_token = process.env.floship_token || config.floship_token
+var floship_token = process.env.floship_token
 
 // takes the floship object that has been filled with the correct data from a moltin order and sends it to floship using the unirest http client library
 exports.new_floship_order = function(floship_template) {
