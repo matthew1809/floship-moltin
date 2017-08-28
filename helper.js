@@ -7,13 +7,11 @@ const Moltin = moltin.gateway({
   client_secret: process.env.client_secret
 });
 
-var floship_token = process.env.floship_token
-
 // takes the floship object that has been filled with the correct data from a moltin order and sends it to floship using the unirest http client library
 exports.new_floship_order = function(floship_template) {
   
     unirest.post('https://sandbox.floship.com/api/v1/orders/')
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Token ' + config.floship_token})
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Token ' + process.env.floship_token})
       .send(floship_template)
       .end(function (response) {
 
