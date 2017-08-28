@@ -51,6 +51,13 @@ app.post('/orders', function (req, res) {
 
 });
 
+// set the test page route
+app.get('/test', function(req, res) {
+
+    res.send('app is running');
+});
+
+
 app.listen(port, function () {
   console.log('Floship app listening on port' + port)
 });
