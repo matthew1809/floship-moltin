@@ -3,7 +3,7 @@ var unirest = require('unirest');
 //var config     = require('./config.js');
 const moltin = require('@moltin/sdk');
 const Moltin = moltin.gateway({
-  client_id: process.env.client_id
+  client_id: process.env.client_id,
   client_secret: process.env.client_secret
 });
 
