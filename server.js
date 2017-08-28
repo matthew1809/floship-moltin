@@ -50,6 +50,10 @@ app.post('/orders', function (req, res) {
 
 });
 
+app.post('/orders-status', function (req, res) {
+  console.log(req.body)
+});
+
 // set the test page route
 app.get('/test', function(req, res) {
 
