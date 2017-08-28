@@ -1,7 +1,11 @@
-var express    = require('express')
+var express    = require('express');
 var https      = require("https");
 var bodyParser = require('body-parser');
-var helper     = require('./helper.js')
+var helper     = require('./helper.js');
+
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 8080;
 
 var app = express()
 app.use(bodyParser.json()); // for parsing application/json
@@ -47,6 +51,6 @@ app.post('/orders', function (req, res) {
 
 });
 
-app.listen(3000, function () {
-  console.log('Floship app listening on port 3000!')
+app.listen(port, function () {
+  console.log('Floship app listening on port' + port)
 });
