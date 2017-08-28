@@ -17,9 +17,8 @@ exports.new_floship_order = function(floship_template) {
 
     if(response.code === 201) {
       console.log("floship order has been created")
-      res.send("floship order has been created");
     } else {
-      res.send("floship request failed with a " + response.code)
+      console.log("floship request failed with a " + response.code)
     }
   });
   
