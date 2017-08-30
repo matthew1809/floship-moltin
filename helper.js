@@ -26,6 +26,7 @@ exports.new_floship_order = function(floship_template) {
       console.log("floship order has been created")
     } else {
       console.log("floship request failed with a " + response.code)
+      console.log(response.body)
     }
   });
   
@@ -44,8 +45,7 @@ exports.get_order_items = function(order_id, floship_template, callback) {
       var order_lines = [];
       
       data.forEach((item) => {
-            
-        var inventory = [{moltin_id: "5965e714-02bd-43f0-bfde-806e2f991a90", id: "9662", customs_value: {amount: 599.00, currency: "USD"}}, {moltin_id: "784db3a8-ce1d-4cfe-8621-6b729a69001a", id: "9662", customs_value: {amount: 799.00, currency: "USD"}}];    
+        var inventory = [{moltin_id: "e2eac233-d094-4338-aa7e-d4282dcb27b5", id: "9662", customs_value: {amount: 599.00, currency: "USD"}}, {moltin_id: "fa80e272-14f8-44ac-aa04-573a59611921", id: "9662", customs_value: {amount: 799.00, currency: "USD"}}];    
         moltin_product_id = item.product_id;  
         quantity = item.quantity;
         
@@ -54,10 +54,8 @@ exports.get_order_items = function(order_id, floship_template, callback) {
             callback(result? result[0] : null, order_lines); // or undefined  
         };
         
-        getFloShipItem(inventory, moltin_product_id, function(result, order_lines) {
-          
+        getFloShipItem(inventory, moltin_product_id, function(result, order_lines) {  
             if (result != undefined) {
-                
               order_lines.push({
                 "item_id": result.id,
                 "quantity": quantity,
@@ -73,7 +71,7 @@ exports.get_order_items = function(order_id, floship_template, callback) {
       return order_lines
     })
 
-    .then((order_lines) => {  
+    .then((order_lines) => { 
       callback(order_lines)
     })
 
