@@ -1,14 +1,18 @@
-var express    = require('express')
+var express    = require('express');
 var https      = require("https");
 var bodyParser = require('body-parser');
-var helper     = require('./helper.js')
+var helper     = require('./helper.js');
+
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 3000;
 
 var app = express()
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.post('/orders', function (req, res) {
-
+  
+  console.log("orders endpoint has been POSTed to")
   var floship_template = {
     "order_lines": [],
     "shipping_address": {
@@ -46,6 +50,17 @@ app.post('/orders', function (req, res) {
 
 });
 
-app.listen(3000, function () {
-  console.log('Floship app listening on port 3000!')
+app.post('/orders-status', function (req, res) {
+  console.log(req.body)
+});
+
+// set the test page route
+app.get('/test', function(req, res) {
+
+    res.send('app is running');
+});
+
+
+app.listen(port, function () {
+  console.log('Floship app listening on port ' + port)
 });
