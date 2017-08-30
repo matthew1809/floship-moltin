@@ -1,5 +1,6 @@
 var exports = module.exports = {};
 var unirest = require('unirest');
+var floship_inventory = require('./floship-inventory');
 
 try {
 var config  = require('./config.js');
@@ -47,7 +48,7 @@ exports.get_order_items = function(order_id, floship_template, callback) {
       var order_lines = [];
       
       data.forEach((item) => {
-        var inventory = [{moltin_id: "e2eac233-d094-4338-aa7e-d4282dcb27b5", id: "9662", customs_value: {amount: 599.00, currency: "USD"}}, {moltin_id: "fa80e272-14f8-44ac-aa04-573a59611921", id: "9662", customs_value: {amount: 799.00, currency: "USD"}}];    
+        var inventory = floship_inventory.inventory;
         moltin_product_id = item.product_id;  
         quantity = item.quantity;
         
